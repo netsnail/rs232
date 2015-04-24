@@ -39,12 +39,12 @@ public class Main extends javax.swing.JFrame {
         setSize(new java.awt.Dimension(800, 85));
         
         String _savepath = Config.get("savepath");
-        String _user = Config.get("user");
-        if (_user == null)
+        String _username = Config.get("username");
+        if (_username == null)
             username = user.getText();
         else {
-            user.setText(_user);
-            username = _user;
+            user.setText(_username);
+            username = _username;
         }
         if (_savepath == null)
             savepath = path.getText();
@@ -162,6 +162,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         
+        String _serialport = Config.get("serialport");
         Enumeration portList = CommPortIdentifier.getPortIdentifiers(); //得到当前连接上的端口  
         while (portList.hasMoreElements()) {
             CommPortIdentifier temp = (CommPortIdentifier) portList.nextElement();
@@ -172,7 +173,8 @@ public class Main extends javax.swing.JFrame {
         if (serialport.getItemCount() < 1) {
             log.error("No available resources.");
             control.setEnabled(false);
-        }
+        } else 
+            serialport.setSelectedItem(_serialport);
     }
 
     /**
@@ -322,6 +324,7 @@ public class Main extends javax.swing.JFrame {
             String _databit = databit.getSelectedItem().toString();
             String _stopbit = stopbit.getSelectedItem().toString();
             int _parity = parity.getSelectedIndex();
+            
             comm = new CommUtil(log, _port, Integer.valueOf(_baudrate), Integer.valueOf(_databit), Integer.valueOf(_stopbit), _parity);
           
 //            comm = new CommUtil(log, _port, 19200, 8, 1, _parity);
@@ -352,9 +355,13 @@ public class Main extends javax.swing.JFrame {
             log.info("Path '"+__path+"' set successfully.");
             
             username = user.getText();
-            Config.set(username, savepath);
+            Config.set("username", username);
+            Config.set("savepath", savepath);
         } else 
             log.error("Path '"+__path+"' Invalid.");
+        
+        if (serialport.getItemCount() > 0)
+            Config.set("serialport", serialport.getSelectedItem().toString());
     }//GEN-LAST:event_setActionPerformed
 
     private void enablelogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enablelogActionPerformed
