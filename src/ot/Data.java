@@ -81,6 +81,7 @@ public class Data implements Serialize {
         return new String(bs, "GBK");
     }
 
+    @Override
     public String toString() {
         return new StringBuffer(super.toString()).append(" [")
             .append(" stx=").append(stx)
