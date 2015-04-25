@@ -38,8 +38,8 @@ public class Main extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(800, 85));
         setSize(new java.awt.Dimension(800, 85));
         
-        String _savepath = Config.get("savepath");
-        String _username = Config.get("username");
+        String _savepath = Config.get(SAVEPATH);
+        String _username = Config.get(USERNAME);
         if (_username == null)
             username = user.getText();
         else {
@@ -162,7 +162,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
         
-        String _serialport = Config.get("serialport");
+        String _serialport = Config.get(SERIALPORT);
         Enumeration portList = CommPortIdentifier.getPortIdentifiers(); //得到当前连接上的端口  
         while (portList.hasMoreElements()) {
             CommPortIdentifier temp = (CommPortIdentifier) portList.nextElement();
@@ -355,14 +355,15 @@ public class Main extends javax.swing.JFrame {
             log.info("Path '"+__path+"' set successfully.");
             
             username = user.getText();
-            Config.set("username", username);
-            Config.set("savepath", savepath);
+            Config.set(USERNAME, username);
+            Config.set(SAVEPATH, savepath);
         } else 
             log.error("Path '"+__path+"' Invalid.");
         
         if (serialport.getItemCount() > 0)
-            Config.set("serialport", serialport.getSelectedItem().toString());
+            Config.set(SERIALPORT, serialport.getSelectedItem().toString());
     }//GEN-LAST:event_setActionPerformed
+    
 
     private void enablelogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enablelogActionPerformed
         if (enablelog.isSelected()) {
@@ -411,6 +412,10 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    private static final String SERIALPORT = "serialport";
+    private static final String SAVEPATH = "savepath";
+    private static final String USERNAME = "username";
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox baudrate;
     private javax.swing.JTextArea console;

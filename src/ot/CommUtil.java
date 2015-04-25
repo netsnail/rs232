@@ -121,7 +121,7 @@ public class CommUtil implements SerialPortEventListener {
                         bb.clear();
                     }
                     if (bb.hasRemaining())
-                    bb.put((byte) b);
+                        bb.put((byte) b);
                 }
                 
                 if (!bb.hasRemaining()) {
