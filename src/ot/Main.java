@@ -37,6 +37,7 @@ public class Main extends javax.swing.JFrame {
         jScrollPane1.setVisible(false);
         setMinimumSize(new java.awt.Dimension(800, 135));
         setSize(new java.awt.Dimension(800, 135));
+        sample_id.requestFocus();
         
         String _savepath = Config.get(SAVEPATH);
         String _username = Config.get(USERNAME);
@@ -101,6 +102,9 @@ public class Main extends javax.swing.JFrame {
                     .append("\r\n")
                     .close();
                     info("write successfully. ");
+                    
+                    // 写完数据清空SAMPLE_id
+                    sample_id.setText("");
                 } catch (Exception ex) {
                     error("write data file, "+ex.getMessage());
                 }
@@ -282,7 +286,7 @@ public class Main extends javax.swing.JFrame {
 
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
-        jPanel4.setMaximumSize(new java.awt.Dimension(300, 100));
+        jPanel4.setMaximumSize(new java.awt.Dimension(400, 100));
         jPanel4.setName(""); // NOI18N
         jPanel4.setPreferredSize(new java.awt.Dimension(500, 50));
         jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
@@ -293,9 +297,27 @@ public class Main extends javax.swing.JFrame {
 
         sample_id.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
         sample_id.setForeground(new java.awt.Color(255, 0, 0));
+        sample_id.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sample_idMouseClicked(evt);
+            }
+        });
         sample_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sample_idActionPerformed(evt);
+            }
+        });
+        sample_id.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                sample_idCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                sample_idInputMethodTextChanged(evt);
+            }
+        });
+        sample_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sample_idKeyPressed(evt);
             }
         });
         jPanel4.add(sample_id);
@@ -410,9 +432,30 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_enablelogActionPerformed
 
+    boolean input_complete = false;
     private void sample_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sample_idActionPerformed
-        // TODO add your handling code here:
+        input_complete = true;
     }//GEN-LAST:event_sample_idActionPerformed
+
+    private void sample_idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sample_idMouseClicked
+        sample_id.setText("");
+    }//GEN-LAST:event_sample_idMouseClicked
+
+    private void sample_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sample_idKeyPressed
+        // TODO add your handling code here:
+        if (input_complete) {
+            sample_id.setText("");
+            input_complete = false;
+        }
+    }//GEN-LAST:event_sample_idKeyPressed
+
+    private void sample_idInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_sample_idInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sample_idInputMethodTextChanged
+
+    private void sample_idCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_sample_idCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sample_idCaretPositionChanged
     
     String savepath,username;
     
