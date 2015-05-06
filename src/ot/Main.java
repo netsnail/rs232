@@ -442,11 +442,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_sample_idMouseClicked
 
     private void sample_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sample_idKeyPressed
-        // TODO add your handling code here:
+        /*
         if (input_complete) {
             sample_id.setText("");
             input_complete = false;
-        }
+        }*/
     }//GEN-LAST:event_sample_idKeyPressed
 
     private void sample_idInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_sample_idInputMethodTextChanged
