@@ -324,11 +324,9 @@ public class Main extends javax.swing.JFrame {
 
         jPanel3.add(jPanel4);
 
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(380, 78));
-
+        console.setEditable(false);
         console.setColumns(20);
         console.setRows(5);
-        console.setPreferredSize(new java.awt.Dimension(380, 75));
         jScrollPane1.setViewportView(console);
 
         jPanel3.add(jScrollPane1);
