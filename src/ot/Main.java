@@ -35,8 +35,9 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setIconImage(new ImageIcon(getClass().getResource("/res/logo.png")).getImage());
         jScrollPane1.setVisible(false);
-        setMinimumSize(new java.awt.Dimension(800, 85));
-        setSize(new java.awt.Dimension(800, 85));
+        setMinimumSize(new java.awt.Dimension(800, 135));
+        setSize(new java.awt.Dimension(800, 135));
+        sample_id.requestFocus();
         
         String _savepath = Config.get(SAVEPATH);
         String _username = Config.get(USERNAME);
@@ -74,8 +75,12 @@ public class Main extends javax.swing.JFrame {
                     if (add_title) {
                         fw.append("流水号,样品编号,检测项目1,检测值1,判定1,检测项目2,检测值2,判定2,检测项目3,检测值3,判定3,产品批号,时间,操作者\r\n");
                     }
-                    fw.append(wrap(data.data_no)).append(',')
-                    .append(wrap(data.sample_id)).append(',');
+                    fw.append(wrap(data.data_no)).append(',');
+                    if (sample_id.getText().length()>0) {
+                        fw.append(wrap(sample_id.getText())).append(',');
+                    } else {
+                        fw.append(wrap(data.sample_id)).append(',');
+                    }
                     if (wrap(data.test_name1).length() > 0) {
                         fw.append(wrap(data.test_name1)).append(',')
                         .append(wrap(data.concentration1)).append(',')
@@ -97,6 +102,9 @@ public class Main extends javax.swing.JFrame {
                     .append("\r\n")
                     .close();
                     info("write successfully. ");
+                    
+                    // 写完数据清空SAMPLE_id
+                    sample_id.setText("");
                 } catch (Exception ex) {
                     error("write data file, "+ex.getMessage());
                 }
@@ -198,6 +206,10 @@ public class Main extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         parity = new javax.swing.JComboBox();
         control = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        sample_id = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         console = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
@@ -272,11 +284,54 @@ public class Main extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.NORTH);
 
+        jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
+
+        jPanel4.setMaximumSize(new java.awt.Dimension(400, 100));
+        jPanel4.setName(""); // NOI18N
+        jPanel4.setPreferredSize(new java.awt.Dimension(500, 50));
+        jPanel4.setLayout(new javax.swing.BoxLayout(jPanel4, javax.swing.BoxLayout.LINE_AXIS));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel10.setText("Sample ID: ");
+        jPanel4.add(jLabel10);
+
+        sample_id.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        sample_id.setForeground(new java.awt.Color(255, 0, 0));
+        sample_id.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sample_idMouseClicked(evt);
+            }
+        });
+        sample_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sample_idActionPerformed(evt);
+            }
+        });
+        sample_id.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                sample_idCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                sample_idInputMethodTextChanged(evt);
+            }
+        });
+        sample_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                sample_idKeyPressed(evt);
+            }
+        });
+        jPanel4.add(sample_id);
+
+        jPanel3.add(jPanel4);
+
+        console.setEditable(false);
         console.setColumns(20);
         console.setRows(5);
         jScrollPane1.setViewportView(console);
 
-        getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+        jPanel3.add(jScrollPane1);
+
+        getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -371,9 +426,34 @@ public class Main extends javax.swing.JFrame {
             setSize(800, 500);
         } else {
             jScrollPane1.setVisible(false);
-            setSize(800, 85);
+            setSize(800, 135);
         }
     }//GEN-LAST:event_enablelogActionPerformed
+
+    boolean input_complete = false;
+    private void sample_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sample_idActionPerformed
+        input_complete = true;
+    }//GEN-LAST:event_sample_idActionPerformed
+
+    private void sample_idMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sample_idMouseClicked
+        sample_id.setText("");
+    }//GEN-LAST:event_sample_idMouseClicked
+
+    private void sample_idKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_sample_idKeyPressed
+        /*
+        if (input_complete) {
+            sample_id.setText("");
+            input_complete = false;
+        }*/
+    }//GEN-LAST:event_sample_idKeyPressed
+
+    private void sample_idInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_sample_idInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sample_idInputMethodTextChanged
+
+    private void sample_idCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_sample_idCaretPositionChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_sample_idCaretPositionChanged
     
     String savepath,username;
     
@@ -423,6 +503,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JComboBox databit;
     private javax.swing.JCheckBox enablelog;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -432,9 +513,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox parity;
     private javax.swing.JTextField path;
+    private javax.swing.JTextField sample_id;
     private javax.swing.JComboBox serialport;
     private javax.swing.JButton set;
     private javax.swing.JComboBox stopbit;
